@@ -1,0 +1,28 @@
+.difficultyMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.btnsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.btnsContainer .btnDefault {
+    width: 105px;
+}
+
+.btnsContainer #d1 {
+    color: #C3FFB4;
+}
+
+.btnsContainer #d2 {
+    color: #FFF6A3;
+}
+
+.btnsContainer #d3 {
+    color: #FFA6A6;
+}

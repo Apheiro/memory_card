@@ -1,0 +1,45 @@
+* {
+    color: white;
+    font-family: 'inter';
+    font-size: 13px;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+body {
+    background: #232323;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+h1,
+h1 span {
+    font-size: 42px;
+    font-weight: 900;
+}
+
+.superV {
+    color: #ECCCFF;
+}
+
+.superH {
+    color: #FFE5B1;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.btnDefault {
+    border-radius: 5px;
+    background: #191919;
+    padding: 13px;
+    border: none;
+    cursor: pointer;
+}
