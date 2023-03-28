@@ -53,7 +53,6 @@ function App() {
         })
       })
       const allImgLoadPromise = Promise.allSettled(promises)
-
       allImgLoadPromise.then(charPromResults => {
         let allCharNoImg = charPromResults
           .filter((char): char is PromiseRejectedResult => char.status === 'rejected')
@@ -99,7 +98,7 @@ function App() {
             <StartMenu setStartGame={setStartGame} />
       }
 
-      <a href='https://github.com/Apheiro/memory_card'>G</a>
+      <a href='https://github.com/Apheiro/memory_card' className='githubBtn'>G</a>
     </div>
   );
 }
