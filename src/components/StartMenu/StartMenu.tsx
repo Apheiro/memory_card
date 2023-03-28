@@ -1,10 +1,10 @@
 import './StartMenu.css'
 
 interface Props {
-    startGameFn: () => void;
+    setStartGame: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function StartMenu({ startGameFn }: Props) {
+export default function StartMenu({ setStartGame }: Props) {
 
     return (
         <section className='startMenu'>
@@ -13,7 +13,7 @@ export default function StartMenu({ startGameFn }: Props) {
                 <h2>MEMORY CARD GAME</h2>
             </div>
 
-            <button className='btnDefault' onClick={startGameFn}>START GAME</button>
+            <button className='btnDefault' onClick={() => { setStartGame(true) }}>START GAME</button>
         </section>
     )
 }

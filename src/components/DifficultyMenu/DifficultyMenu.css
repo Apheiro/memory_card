@@ -15,14 +15,14 @@
     width: 105px;
 }
 
-.btnsContainer #d1 {
+.easy {
     color: #C3FFB4;
 }
 
-.btnsContainer #d2 {
+.normal {
     color: #FFF6A3;
 }
 
-.btnsContainer #d3 {
+.hard {
     color: #FFA6A6;
 }
