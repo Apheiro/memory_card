@@ -4,11 +4,14 @@ import DifficultyMenu from '../components/DifficultyMenu/DifficultyMenu';
 import Game from '../components/Game/Game';
 import { useState, useEffect } from 'react'
 import useStateCC from '../hooks/useStateCC';
-
+import { FaGithubAlt } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ButtonAnimation } from '../components/Animations/AnimationLayout';
 interface Character {
   id: number,
   image: string,
   name: string,
+  publisher: string,
   picked: boolean
 }
 
@@ -16,6 +19,7 @@ function App() {
   const [startGame, setStartGame] = useState<boolean>(false);
   const [difficulty, setDifficulty] = useState<number>(0);
   const [showGame, setShowGame] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(false);
   const [characters, setCharacters] = useStateCC<Character[]>([]);
 
   function getUrls(max?: number, excludeID: number[] = []): string[] {
@@ -39,6 +43,7 @@ function App() {
         id: parseInt(characterInfoJson.id),
         image: characterInfoJson.image.url,
         name: characterInfoJson.name,
+        publisher: characterInfoJson.biography.publisher,
         picked: false
       } as Character;
     }));
@@ -53,6 +58,7 @@ function App() {
         })
       })
       const allImgLoadPromise = Promise.allSettled(promises)
+
       allImgLoadPromise.then(charPromResults => {
         let allCharNoImg = charPromResults
           .filter((char): char is PromiseRejectedResult => char.status === 'rejected')
@@ -69,7 +75,9 @@ function App() {
         } else {
           const allCharacters = [...allCharactersSaved, ...characters];
           setCharacters(allCharacters, () => {
+            setDifficulty(0);
             setShowGame(true);
+            setLoad(false);
           });
         }
       })
@@ -79,26 +87,22 @@ function App() {
   }
 
   useEffect(() => {
-    if (difficulty !== 0) fillCharacters(difficulty)
+    if (difficulty !== 0) {
+      setLoad(true);
+      fillCharacters(difficulty)
+    }
   }, [difficulty])
 
 
   return (
     <div className="App">
-      <button onClick={() => {
-        console.log('startgame', startGame)
-        console.log('showGame', showGame)
-        console.log('characters', characters)
-      }}>Test</button>
-      {
-        showGame ?
-          <Game characters={characters} /> :
-          startGame ?
-            <DifficultyMenu setDifficulty={setDifficulty} /> :
-            <StartMenu setStartGame={setStartGame} />
-      }
-
-      <a href='https://github.com/Apheiro/memory_card' className='githubBtn'>G</a>
+      <AnimatePresence mode={'wait'}>
+        {showGame && <Game characters={characters} setShowGame={setShowGame} fillCharacters={fillCharacters} showGame={showGame} />}
+        {load && <div>Loading</div>}
+        {startGame && !showGame && !load && <DifficultyMenu setDifficulty={setDifficulty} startGame={startGame} key='difficultyMenu' />}
+        {!startGame && <StartMenu setStartGame={setStartGame} key='startGameMenu' />}
+      </AnimatePresence>
+      <motion.a {...ButtonAnimation} href='https://github.com/Apheiro/memory_card' className='githubBtn'><FaGithubAlt /></motion.a>
     </div>
   );
 }
