@@ -6,6 +6,18 @@
     gap: 20px;
 }
 
+.counter {
+    display: flex;
+    background: #191919;
+    border-radius: 5px;
+    line-height: 25px;
+    padding: 10px;
+}
+
+.counter h1 {
+    font-size: 28px !important;
+}
+
 .cards {
     display: flex;
     gap: 20px;
@@ -17,9 +29,88 @@
     overflow: hidden;
     border-radius: 10px;
     border: #191919 solid 5px;
+    position: relative;
+    cursor: pointer;
 }
 
-.card img {
+.boxShadow {
+    box-shadow: inset 0px 0px 50px 20px rgb(0 0 0 / 44%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.hoverInfo {
+    background: rgba(0, 0, 0, 0.726);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    gap: 5px;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.line {
+    background: rgba(255, 255, 255, 0.479);
+    height: 1px;
+    width: 70%;
+    border-radius: 10px;
+}
+
+.hoverInfo:hover {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.imgCard {
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: -1;
+}
+
+.btnsInGame {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.OptionsBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.refreshBtn {
+    height: 42px;
+    width: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.refreshBtn svg {
+    height: 25px;
+    width: 25px;
+    stroke: white !important;
+    stroke-width: 3px !important;
+}
+
+.refreshBtn svg path {
+    stroke: white !important;
+}
+
+.characterName {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.publisher {
+    font-size: 13px;
 }

@@ -1,40 +1,44 @@
 import './Game.css'
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { GrRefresh } from 'react-icons/gr'
+import { ButtonAnimation, Cards, InOut } from '../Animations/AnimationLayout';
+import { motion, AnimatePresence, Reorder } from 'framer-motion'
 import useStateCC from '../../hooks/useStateCC';
 
 interface Character {
     id: number,
     image: string,
     name: string,
+    publisher: string,
     picked: boolean
 }
 
 interface Props {
-    characters: Character[]
+    characters: Character[],
+    setShowGame: (show: boolean) => void
 }
 
-export default function Game({ characters }: Props) {
-
+export default function Game({ characters, setShowGame }: Props) {
     const [charactersRound, setCharactersRound] = useStateCC<Character[]>([]);
-    // const [characterPicked, setCharacterPicked] = useStateCC<number[]>([]);
     const [round, setRound] = useStateCC<number>(0);
+    const [gameOver, setGameOver] = useStateCC<boolean>(false);
 
-    function getRandomIndex(char: Character[]): number {
-        return Math.floor(Math.random() * char.length);
+    function getRandomIndex(charLenght: number): number {
+        return Math.floor(Math.random() * charLenght);
     }
 
     function pickRandomCharactersIndex(maxIndex: number, charactersSaved: Character[] = []): void {
         if (maxIndex == 0) {
-            setCharactersRound(charactersSaved);
+            charactersSaved.every(char => char.picked == true) ?
+                pickRandomCharactersIndex(4) :
+                setCharactersRound(charactersSaved);
         } else {
-            let randomIndex = getRandomIndex(characters)
-            const charactersSavedArray: Character[] = charactersSaved;
-            while (charactersSaved.includes(characters[randomIndex])) { randomIndex = getRandomIndex(characters); }
-            charactersSavedArray.push(characters[randomIndex]);
-            charactersSavedArray.every(char => char.picked == true) ?
-                setCharactersRound([], () => { pickRandomCharactersIndex(4) }) :
-                pickRandomCharactersIndex(maxIndex - 1, charactersSavedArray);
+            let randomIndex: number;
+            do { randomIndex = getRandomIndex(characters.length); }
+            while (charactersSaved.includes(characters[randomIndex]))
+            charactersSaved.push(characters[randomIndex]);
+            pickRandomCharactersIndex(maxIndex - 1, charactersSaved);
         }
     }
 
@@ -50,13 +54,21 @@ export default function Game({ characters }: Props) {
         const characterPicked: Character | undefined = characters.find(char => char.id === id)
 
         if (characterPicked?.picked == true) {
-            alert('You already picked this character')
+            setGameOver(true)
         } else {
             if (characterPicked) characterPicked.picked = true
             characters.every(char => char.picked == true) ?
-                alert('you win!') :
+                setGameOver(true) :
                 selectCharactersInRound(4)
         }
+    }
+
+    function restartGame(): void {
+        setGameOver(false)
+        setRound(1, () => {
+            characters.forEach(char => char.picked = false)
+            pickRandomCharactersIndex(4)
+        })
     }
 
     useEffect(() => {
@@ -65,72 +77,48 @@ export default function Game({ characters }: Props) {
 
     return (
         <section className='game'>
-            <div className='counter'>
-                <h1>{round}/{characters.length}</h1>
-            </div>
-            <button onClick={() => {
+            {gameOver ?
+                <>
+                    {characters.every(char => char.picked == true) ?
+                        <motion.h1 {...InOut}>YOU <span style={{ color: '#D7FFB8' }}>WON</span></motion.h1> :
+                        <motion.h1 {...InOut}>YOU <span style={{ color: '#FFA6A6' }}>LOST</span></motion.h1>
+                    }
+                    <div className='OptionsBtns'>
+                        <motion.button {...ButtonAnimation} className='btnDefault refreshBtn' onClick={restartGame}><GrRefresh /></motion.button>
+                        <motion.button {...ButtonAnimation} className='btnDefault' onClick={() => setShowGame(false)}>CHOOSE DIFFICULTY</motion.button>
+                    </div>
+                </ >
+                :
+                <>
+                    <motion.div {...InOut} className='counter'>
+                        <h1>{round}/{characters.length}</h1>
+                    </motion.div>
+                    <div className='cards'>
+                        <AnimatePresence mode={'popLayout'}>
+                            {
+                                charactersRound.map((char) => {
+                                    return (
+                                        <motion.div {...Cards} className='card' onClick={pickCard} id={`${char.id}`} key={char.id}>
+                                            <div className='boxShadow'></div>
+                                            <div className='hoverInfo'>
+                                                <p className='characterName'>{char.name}</p>
+                                                <span className='line'></span>
+                                                <p className='publisher'>{char.publisher}</p>
+                                            </div>
+                                            <img className='imgCard' src={char.image} alt={char.name} />
+                                        </motion.div>
+                                    )
+                                })
+                            }
+                        </AnimatePresence>
 
-                console.log('characters Index Round : ' + charactersRound)
-                console.log(characters)
-                console.log(charactersRound)
-
-
-            }}>Test</button>
-            <div className='cards'>
-
-                {
-                    charactersRound.map((char) => {
-                        return (
-                            <div className='card' onClick={pickCard} id={`${char.id}`} key={char.id}>
-                                <img src={char.image} alt={char.name} />
-                            </div>
-                        )
-                    })
-                }
-
-            </div>
+                    </div>
+                    <div className='OptionsBtns btnsInGame'>
+                        <motion.button {...ButtonAnimation} className='btnDefault refreshBtn' onClick={restartGame}><GrRefresh /></motion.button>
+                        <motion.button {...ButtonAnimation} className='btnDefault' onClick={() => setShowGame(false)}>CHOOSE DIFFICULTY</motion.button>
+                    </div>
+                </>
+            }
         </section>
     )
 }
-
-
-
-
-
-
-// old function
-// function pickRandomCharactersIndex(maxIndex: number, charactersSaved: number[] = []): void {
-//     // if (maxIndex == 0) {
-//     //     setCharactersIndexRound(charactersSaved)
-//     // } else {
-//     //     let randomIndex: number = getRandomIndex(characters)
-//     //     while (charactersSaved.includes(randomIndex) || maxIndex === 1 && characterPicked.includes(characters[randomIndex].id)) { randomIndex = getRandomIndex(characters) }
-
-//     //     // charactersSaved.includes(randomIndex) ?
-//     //     //     pickRandomCharactersIndex(maxIndex, charactersSaved) :
-//     //     // maxIndex === 1 && characterPicked.includes(characters[randomIndex].id) ?
-//     //     //      pickRandomCharactersIndex(maxIndex, charactersSaved) :
-//     //     // round === characters.length ? alert('you win!') : pickRandomCharactersIndex(maxIndex, charactersSaved) :
-//     //     pickRandomCharactersIndex(maxIndex - 1, charactersSaved.concat(randomIndex))
-//     // }
-// }
-
-
-// function pickRandomCharactersIndex(maxIndex: number, charactersSaved: number[] = []): void {
-//     if (maxIndex == 0) {
-//         setCharactersIndexRound(charactersSaved)
-//     } else {
-//         let randomIndex;
-//         do {
-//             randomIndex = getRandomIndex(characters)
-//         }
-//         while (
-//             maxIndex === 1 && // que sea el ultimo por buscar
-//             characterPicked.includes(characters[randomIndex].id) && // que no se repita en los pickeados
-//             charactersSaved.includes(randomIndex) // que no este guardado entre los que se mostraran
-//             ||
-//             charactersSaved.includes(randomIndex) // que no se repita entre los que se muestran
-//         )
-//         pickRandomCharactersIndex(maxIndex - 1, charactersSaved.concat(randomIndex))
-//     }
-// }

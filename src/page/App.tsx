@@ -97,7 +97,7 @@ function App() {
   return (
     <div className="App">
       <AnimatePresence mode={'wait'}>
-        {showGame && <Game characters={characters} setShowGame={setShowGame} fillCharacters={fillCharacters} showGame={showGame} />}
+        {showGame && <Game characters={characters} setShowGame={setShowGame} />}
         {load && <div>Loading</div>}
         {startGame && !showGame && !load && <DifficultyMenu setDifficulty={setDifficulty} startGame={startGame} key='difficultyMenu' />}
         {!startGame && <StartMenu setStartGame={setStartGame} key='startGameMenu' />}

@@ -37,7 +37,11 @@ h1 span {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+}
+
+.githubBtn svg {
+    width: 25px;
+    height: 25px;
 }
 
 .superV {
