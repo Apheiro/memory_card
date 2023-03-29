@@ -1,12 +1,10 @@
 import './Game.css'
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { GrRefresh } from 'react-icons/gr'
 import { ButtonAnimation, Cards, InOut } from '../Animations/AnimationLayout';
 import { motion } from 'framer-motion'
 import useStateCC from '../../hooks/useStateCC';
-
-
 
 interface Character {
     id: number,
@@ -31,8 +29,8 @@ export default function Game({ characters, setShowGame }: Props) {
     }
 
     function pickRandomCharactersIndex(maxIndex: number, charactersSaved: Character[] = []): void {
-        if (maxIndex == 0) {
-            charactersSaved.every(char => char.picked == true) ?
+        if (maxIndex === 0) {
+            charactersSaved.every(char => char.picked === true) ?
                 pickRandomCharactersIndex(4) :
                 setCharactersRound(charactersSaved);
         } else {
@@ -55,11 +53,11 @@ export default function Game({ characters, setShowGame }: Props) {
         const id: number = parseInt(e.currentTarget.id)
         const characterPicked: Character | undefined = characters.find(char => char.id === id)
 
-        if (characterPicked?.picked == true) {
+        if (characterPicked?.picked === true) {
             setGameOver(true)
         } else {
             if (characterPicked) characterPicked.picked = true
-            characters.every(char => char.picked == true) ?
+            characters.every(char => char.picked === true) ?
                 setGameOver(true) :
                 selectCharactersInRound(4)
         }
@@ -75,13 +73,15 @@ export default function Game({ characters, setShowGame }: Props) {
 
     useEffect(() => {
         selectCharactersInRound(4)
+        // eslint-disable-next-line
     }, [])
+
 
     return (
         <section className='game'>
             {gameOver ?
                 <>
-                    {characters.every(char => char.picked == true) ?
+                    {characters.every(char => char.picked === true) ?
                         <motion.h1 {...InOut}>YOU <span style={{ color: '#D7FFB8' }}>WON</span></motion.h1> :
                         <motion.h1 {...InOut}>YOU <span style={{ color: '#FFA6A6' }}>LOST</span></motion.h1>
                     }
@@ -111,7 +111,6 @@ export default function Game({ characters, setShowGame }: Props) {
                                 )
                             })
                         }
-
                     </div>
                     <div className='OptionsBtns btnsInGame'>
                         <motion.button {...ButtonAnimation} className='btnDefault refreshBtn' onClick={restartGame}><GrRefresh /></motion.button>

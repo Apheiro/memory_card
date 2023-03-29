@@ -1,7 +1,6 @@
 import './StartMenu.css'
 import { motion } from 'framer-motion'
 import { ButtonAnimation, InOut } from '../Animations/AnimationLayout';
-import { useEffect } from 'react';
 
 interface Props {
     setStartGame: React.Dispatch<React.SetStateAction<boolean>>;
