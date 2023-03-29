@@ -21,6 +21,8 @@
 .cards {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card {
@@ -113,4 +115,12 @@
 
 .publisher {
     font-size: 13px;
+}
+
+@media screen and (max-width: 470px) {
+    .card {
+        width: 159px;
+        height: 212px;
+        transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
+    }
 }
