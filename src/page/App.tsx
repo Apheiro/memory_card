@@ -7,6 +7,8 @@ import useStateCC from '../hooks/useStateCC';
 import { FaGithubAlt } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ButtonAnimation } from '../components/Animations/AnimationLayout';
+import { Rings } from 'react-loader-spinner'
+
 interface Character {
   id: number,
   image: string,
@@ -98,7 +100,16 @@ function App() {
     <div className="App">
       <AnimatePresence mode={'wait'}>
         {showGame && <Game characters={characters} setShowGame={setShowGame} />}
-        {load && <div>Loading</div>}
+        {load && <Rings
+          height="80"
+          width="80"
+          color="#ECCCFF"
+          radius="6"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="rings-loading"
+        />}
         {startGame && !showGame && !load && <DifficultyMenu setDifficulty={setDifficulty} startGame={startGame} key='difficultyMenu' />}
         {!startGame && <StartMenu setStartGame={setStartGame} key='startGameMenu' />}
       </AnimatePresence>

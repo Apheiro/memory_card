@@ -3,8 +3,10 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { GrRefresh } from 'react-icons/gr'
 import { ButtonAnimation, Cards, InOut } from '../Animations/AnimationLayout';
-import { motion, AnimatePresence, Reorder } from 'framer-motion'
+import { motion } from 'framer-motion'
 import useStateCC from '../../hooks/useStateCC';
+
+
 
 interface Character {
     id: number,
@@ -94,23 +96,21 @@ export default function Game({ characters, setShowGame }: Props) {
                         <h1>{round}/{characters.length}</h1>
                     </motion.div>
                     <div className='cards'>
-                        <AnimatePresence mode={'popLayout'}>
-                            {
-                                charactersRound.map((char) => {
-                                    return (
-                                        <motion.div {...Cards} className='card' onClick={pickCard} id={`${char.id}`} key={char.id}>
-                                            <div className='boxShadow'></div>
-                                            <div className='hoverInfo'>
-                                                <p className='characterName'>{char.name}</p>
-                                                <span className='line'></span>
-                                                <p className='publisher'>{char.publisher}</p>
-                                            </div>
-                                            <img className='imgCard' src={char.image} alt={char.name} />
-                                        </motion.div>
-                                    )
-                                })
-                            }
-                        </AnimatePresence>
+                        {
+                            charactersRound.map((char) => {
+                                return (
+                                    <motion.div {...Cards} className='card' onClick={pickCard} id={`${char.id}`} key={char.id}>
+                                        <div className='boxShadow'></div>
+                                        <div className='hoverInfo'>
+                                            <p className='characterName'>{char.name}</p>
+                                            <span className='line'></span>
+                                            <p className='publisher'>{char.publisher}</p>
+                                        </div>
+                                        <img className='imgCard' src={char.image} alt={char.name} />
+                                    </motion.div>
+                                )
+                            })
+                        }
 
                     </div>
                     <div className='OptionsBtns btnsInGame'>
