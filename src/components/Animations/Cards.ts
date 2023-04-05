@@ -6,14 +6,6 @@ interface scaleTransition {
     }
 }
 
-interface CardsAnimation {
-    initial: { scale: number, opacity: number },
-    animate: { scale: number, opacity: number, transition: { scale: { duration: number }, opacity: { duration: number } } },
-    exit: { opacity: number, transition: { opacity: { duration: number } } },
-    whileHover: { scale: number, transition: scaleTransition },
-    whileTap: { scale: number, transition: scaleTransition },
-}
-
 const scaleTransition: scaleTransition = {
     scale: {
         type: "spring",

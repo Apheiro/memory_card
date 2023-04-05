@@ -5,6 +5,10 @@
     gap: 25px;
 }
 
+.difficultyMenu h1 {
+    text-align: center;
+}
+
 .btnsContainer {
     display: flex;
     justify-content: center;

@@ -4,8 +4,6 @@ import { InOut } from '../Animations/InOut'
 import { motion } from 'framer-motion'
 import { ButtonAnimation } from '../Animations/AnimationLayout';
 
-
-
 interface Props {
     setDifficulty: React.Dispatch<React.SetStateAction<number>>,
     startGame: boolean
@@ -14,7 +12,7 @@ interface Props {
 export default function DifficultyMenu({ setDifficulty, startGame }: Props) {
 
     function difficulty(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-        setDifficulty(e.currentTarget.dataset.difficulty != undefined ? parseInt(e.currentTarget.dataset.difficulty) : 0)
+        setDifficulty(e.currentTarget.dataset.difficulty !== undefined ? parseInt(e.currentTarget.dataset.difficulty) : 0)
     }
 
     return (

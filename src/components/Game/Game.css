@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    width: 100vw;
 }
 
 .counter {
@@ -19,20 +20,25 @@
 }
 
 .cards {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-rows: auto;
+    padding-inline: 20px;
+    justify-items: center;
+    max-width: 970px;
+    width: 100%;
     gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 .card {
-    width: 219px;
-    height: 292px;
+    width: 100%;
+    aspect-ratio: 3/4;
     overflow: hidden;
     border-radius: 10px;
     border: #191919 solid 5px;
     position: relative;
     cursor: pointer;
+    transition: width 0.15s ease-in-out, height 0.15s ease-in-out;
 }
 
 .boxShadow {
@@ -115,12 +121,4 @@
 
 .publisher {
     font-size: 13px;
-}
-
-@media screen and (max-width: 470px) {
-    .card {
-        width: 159px;
-        height: 212px;
-        transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
-    }
 }

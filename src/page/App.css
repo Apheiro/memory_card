@@ -1,12 +1,13 @@
 * {
     color: white;
-    font-family: 'inter';
+    font-family: Helvetica, Arial, inter, sans-serif;
     font-size: 13px;
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
     font-weight: 500;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -16,6 +17,8 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
+    padding: 20px;
+    overflow: hidden;
 }
 
 h1,
