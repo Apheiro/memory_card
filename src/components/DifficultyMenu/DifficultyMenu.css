@@ -1,8 +1,9 @@
 .difficultyMenu {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 25px;
+    justify-self: center;
+    align-self: center;
 }
 
 .difficultyMenu h1 {
@@ -14,10 +15,6 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-}
-
-.btnsContainer .btnDefault {
-    width: 105px;
 }
 
 .easy {

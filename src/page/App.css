@@ -1,24 +1,60 @@
-* {
-    color: white;
-    font-family: Helvetica, Arial, inter, sans-serif;
-    font-size: 13px;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-weight: 500;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
+/* 
 
 body {
     background: #232323;
     display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     justify-content: center;
     align-items: center;
+    padding: 20px 20px 90px 20px;
     height: 100vh;
     width: 100vw;
-    padding: 20px;
+}
+
+ */
+* {
+    color: white;
+    font-family: Helvetica, Arial, inter, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body,
+html {
     overflow: hidden;
+}
+
+body {
+    background: #232323;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+.App {
+    display: grid;
+    grid-template-rows: 1fr 50px;
+    flex-direction: column;
+    /* justify-content: center; */
+    height: 100%;
+    width: 100%;
 }
 
 h1,
@@ -26,27 +62,6 @@ h1 span {
     font-size: 42px;
     font-weight: 900;
     line-height: 40px;
-}
-
-.githubBtn {
-    background: #191919;
-    border-radius: 5px;
-    font-size: 28px;
-    height: 50px;
-    width: 50px;
-    text-decoration: none;
-    font-weight: 900;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.githubBtn svg {
-    width: 25px;
-    height: 25px;
 }
 
 .superV {
@@ -68,4 +83,31 @@ h2 {
     padding: 13px;
     border: none;
     cursor: pointer;
+}
+
+.githubBtn {
+    background: #191919;
+    border-radius: 5px;
+    font-size: 28px;
+    height: 50px;
+    width: 50px;
+    text-decoration: none;
+    font-weight: 900;
+    /* position: absolute; */
+    /* right: 20px; */
+    /* bottom: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+}
+
+.githubBtn svg {
+    width: 25px;
+    height: 25px;
+}
+
+div[data-testid="rings-loading"] {
+    justify-self: center;
+    align-self: center;
 }
